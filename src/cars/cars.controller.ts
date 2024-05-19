@@ -1,8 +1,10 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, ParseUUIDPipe, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CarsService } from './cars.service';
 import { v4 } from 'uuid';
+import { CreateCarDto } from './dto/create-car.dto';
 
 @Controller('cars')
+@UsePipes( ValidationPipe )
 export class CarsController {
 
     // La inyeccion de dependencias se realiza en el constructor
@@ -21,8 +23,8 @@ export class CarsController {
     }
 
     @Post()
-    createCar( @Body() body:any ){
-        return body;
+    createCar( @Body() createCarDto: CreateCarDto ){
+        return createCarDto;
     }
 
     @Patch(':id')
